@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from django.contrib import admin
+from django_gruveo.views import GruveoTokenSignerView
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^gruveo/token/', GruveoTokenSignerView.as_view(), name='gruveo-token')
 ]
