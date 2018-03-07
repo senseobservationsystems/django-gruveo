@@ -6,11 +6,11 @@ from rest_framework import serializers
 
 class GruveoTokenSerializer(serializers.Serializer):
 
-   unique_message = serializers.CharField(write_only=True)
-   gruveo_token = serializers.SerializerMethodField(read_only=True)
+   token = serializers.CharField(write_only=True)
+   token_hmac = serializers.SerializerMethodField(read_only=True)
 
-   def get_gruveo_token(self, obj):
+   def get_token_hmac(self, obj):
        secret = settings.GRUVEO_SECRET
-       digest = hmac.new(secret, obj['unique_message'], hashlib.sha256).digest()
+       digest = hmac.new(secret, obj['token'], hashlib.sha256).digest()
 
        return base64.b64encode(digest)
