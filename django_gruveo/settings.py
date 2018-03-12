@@ -119,4 +119,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-GRUVEO_SECRET = 'put gruveo secret here'
+GRUVEO_SECRET = 'aa' #gruveo demo secret
