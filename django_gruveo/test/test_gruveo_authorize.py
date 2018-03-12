@@ -47,11 +47,16 @@ class ActivationViewTest(TestCase):
         self.assertEquals(response.status_code, 400)
 
     def test_validate_invalid_key_secret(self):
-        settings.GRUVEO_SECRET =  self.fake.pystr(min_chars=1, max_chars=20)
+        settings.GRUVEO_SECRET = "somesecret"
         token = self.fake.pystr(min_chars=1, max_chars=20)
         data = {
-            'tokens': token
+            'token': token
         }
         response = self.client.post('/gruveo/token/', data)
 
-        self.assertEquals(response.status_code, 400)
+        headers = {'Content-type': 'text/plain'}
+        r = requests.post('https://api-demo.gruveo.com/signer', data=token, headers=headers)
+
+        self.assertEquals(response.status_code, 201)
+        self.assertEquals(r.status_code, 200)
+        self.assertNotEquals(response.json()['token_hmac'], r.text)
