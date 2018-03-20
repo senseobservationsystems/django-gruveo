@@ -3,7 +3,6 @@ from rest_framework.response import Response
 from django_gruveo.serializers import GruveoTokenSerializer
 
 class GruveoTokenSignerView(views.APIView):
-    serializer_class = GruveoTokenSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = GruveoTokenSerializer(data=request.data)
