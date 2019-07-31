@@ -11,6 +11,6 @@ class GruveoTokenSerializer(serializers.Serializer):
 
    def get_token_hmac(self, obj):
        secret = settings.GRUVEO_SECRET
-       digest = hmac.new(secret, obj['token'], hashlib.sha256).digest()
+       digest = hmac.new(secret.encode('utf-8'), obj['token'].encode('utf-8'), hashlib.sha256).digest()
 
        return base64.b64encode(digest)
